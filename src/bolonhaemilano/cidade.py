@@ -11,6 +11,7 @@ class Cidade:
         self.florins = 1000
         self.terras = 10000
         self.graos = 500
+        self.servos = 200
 
     def getNome(self) -> str:
         return self.nome
@@ -29,6 +30,9 @@ class Cidade:
 
     def getGraos(self) -> int:
         return self.graos
+
+    def getServos(self) -> int:
+        return self.servos
 
     def avancarAno(self) -> None:
         self.anoAtual += 1
@@ -66,6 +70,17 @@ class Cidade:
         self.graos -= qtd
         return True
 
+    def adicionarServos(self, qtd: int) -> None:
+        if qtd > 0:
+            self.servos += qtd
+
+    def removerServos(self, qtd: int) -> bool:
+        if qtd <= 0 or self.servos < qtd:
+            return False
+
+        self.servos -= qtd
+        return True
+
     def exibirStatus(self) -> None:
         print("\n========== STATUS DA CIDADE ==========")
         print(f"Cidade: {self.nome}")
@@ -74,4 +89,5 @@ class Cidade:
         print(f"Florins: {self.florins}")
         print(f"Terras: {self.terras} hectares")
         print(f"Grãos: {self.graos} unidades")
+        print(f"Servos: {self.servos}")
         print("======================================")
