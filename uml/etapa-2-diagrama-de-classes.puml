@@ -1,0 +1,47 @@
+@startuml
+
+left to right direction
+
+class Main {
+    +main(args: list[str]): None
+}
+
+class Menu {
+    -scanner: TextIO
+    -emExecucao: bool
+    -jogador: Jogador
+    -cidade: Cidade
+
+    +executar(): None
+    -iniciarNovoJogo(): None
+    -exibirOpcoes(): None
+    -lerOpcao(): int
+    -processarOpcao(opcao: int): None
+    -exibirSobre(): None
+}
+
+class Jogador {
+    -nome: str
+    -titulo: str
+
+    +getNome(): str
+    +getTitulo(): str
+}
+
+class Cidade {
+    -nome: str
+    -anoAtual: int
+    -dono: Jogador
+
+    +avancarAno(): None
+    +exibirStatus(): None
+}
+
+Main ..> Menu : cria e usa
+
+Menu --> Jogador
+Menu --> Cidade
+
+Cidade --> "1" Jogador : dono
+
+@enduml
