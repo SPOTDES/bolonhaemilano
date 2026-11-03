@@ -1,0 +1,23 @@
+
+@startuml
+
+left to right direction
+
+class Main {
+    +main(args: list[str]): None
+}
+
+class Menu {
+    -scanner: TextIO
+    -emExecucao: bool
+
+    +executar(): None
+    -exibirOpcoes(): None
+    -lerOpcao(): int
+    -processarOpcao(opcao: int): None
+    -exibirSobre(): None
+}
+
+Main ..> Menu : cria e usa
+
+@enduml
