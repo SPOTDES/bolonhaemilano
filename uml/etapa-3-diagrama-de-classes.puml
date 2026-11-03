@@ -1,0 +1,87 @@
+
+@startuml
+
+left to right direction
+
+class Main {
+    +main(args: list[str]): None
+}
+
+class Menu {
+    -scanner: TextIO
+    -emExecucao: bool
+    -jogador: Jogador
+    -cidade: Cidade
+    -mercado: Mercado
+
+    +executar(): None
+    -exibirOpcoes(): None
+    -lerOpcao(): int
+    -processarOpcao(opcao: int): None
+    -iniciarNovoJogo(): None
+    -exibirStatus(): None
+    -abrirMercado(): None
+    -lerQuantidade(): int
+    -comprarGraos(): None
+    -venderGraos(): None
+    -comprarTerras(): None
+    -venderTerras(): None
+    -exibirSobre(): None
+}
+
+class Jogador {
+    -nome: str
+    -titulo: str
+
+    +getNome(): str
+    +getTitulo(): str
+    +setTitulo(titulo: str): None
+}
+
+class Cidade {
+    -nome: str
+    -anoAtual: int
+    -dono: Jogador
+    -florins: int
+    -terras: int
+    -graos: int
+
+    +getNome(): str
+    +getAnoAtual(): int
+    +getDono(): Jogador
+    +getFlorins(): int
+    +getTerras(): int
+    +getGraos(): int
+    +avancarAno(): None
+    +adicionarFlorins(qtd: int): None
+    +removerFlorins(qtd: int): bool
+    +adicionarTerras(qtd: int): None
+    +removerTerras(qtd: int): bool
+    +adicionarGraos(qtd: int): None
+    +removerGraos(qtd: int): bool
+    +exibirStatus(): None
+}
+
+class Mercado {
+    -PRECO_GRAO: int
+    -PRECO_TERRA: int
+
+    +getPrecoGrao(): int
+    +getPrecoTerra(): int
+    +comprarGraos(cidade: Cidade, qtd: int): bool
+    +venderGraos(cidade: Cidade, qtd: int): bool
+    +comprarTerras(cidade: Cidade, qtd: int): bool
+    +venderTerras(cidade: Cidade, qtd: int): bool
+}
+
+Main ..> Menu : cria e usa
+
+Menu --> Jogador
+Menu --> Cidade
+Menu --> Mercado
+
+Cidade --> "1" Jogador : dono
+
+Mercado ..> Cidade : recebe como parâmetro
+
+@enduml

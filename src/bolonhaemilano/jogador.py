@@ -9,3 +9,6 @@ class Jogador:
 
     def getTitulo(self) -> str:
         return self.titulo
+
+    def setTitulo(self, titulo: str) -> None:
+        self.titulo = titulo
