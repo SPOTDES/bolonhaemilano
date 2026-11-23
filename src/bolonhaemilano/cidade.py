@@ -4,7 +4,6 @@ from jogador import Jogador
 
 class Cidade:
 
-    # Constantes de valores iniciais
     ANO_INICIAL = 1400
     FLORINS_INICIAIS = 1000
     TERRAS_INICIAIS = 10000
@@ -30,6 +29,9 @@ class Cidade:
 
         self.soldados = self.SOLDADOS_INICIAIS
         self.construcoes = self.CONSTRUCOES_INICIAIS
+
+        self.colheitaFeita = False
+        self.impostosArrecadados = False
 
     def getNome(self) -> str:
         return self.nome
@@ -70,8 +72,22 @@ class Cidade:
     def getConstrucoes(self) -> int:
         return self.construcoes
 
+    def isColheitaFeita(self) -> bool:
+        return self.colheitaFeita
+
+    def marcarColheitaFeita(self) -> None:
+        self.colheitaFeita = True
+
+    def isImpostosArrecadados(self) -> bool:
+        return self.impostosArrecadados
+
+    def marcarImpostosArrecadados(self) -> None:
+        self.impostosArrecadados = True
+
     def avancarAno(self) -> None:
         self.anoAtual += 1
+        self.colheitaFeita = False
+        self.impostosArrecadados = False
 
     def adicionarFlorins(self, qtd: int) -> None:
         if qtd > 0:
@@ -142,14 +158,25 @@ class Cidade:
     def exibirStatus(self) -> None:
         print("\n========== STATUS DA CIDADE ==========")
         print(f"Cidade: {self.nome}")
-        print(f"Governante: {self.dono.getNome()}")
+        print(
+            f"Governante: {self.dono.getNome()} "
+            f"({self.dono.getTitulo()})"
+        )
         print(f"Ano atual: {self.anoAtual}")
         print(f"Florins: {self.florins}")
         print(f"Terras: {self.terras} hectares")
-        print(f"Grãos: {self.graos} unidades")
+        print(f"Grãos em estoque: {self.graos}")
         print(f"Servos: {self.servos}")
         print(f"Taxa de imposto: {self.taxaImposto}%")
         print(f"Nível de justiça: {self.nivelJustica}")
         print(f"Soldados: {self.soldados}")
         print(f"Construções: {self.construcoes}")
+
+        statusColheita = "feita" if self.colheitaFeita else "pendente"
+        statusImpostos = (
+            "arrecadados" if self.impostosArrecadados else "pendentes"
+        )
+
+        print(f"Colheita deste ano: {statusColheita}")
+        print(f"Impostos deste ano: {statusImpostos}")
         print("======================================")

@@ -10,7 +10,11 @@ class Governo:
     MULTIPLICADOR_MODERADA = 1.0
     MULTIPLICADOR_SEVERA = 1.3
 
+
     def arrecadarImpostos(self, cidade: Cidade) -> int:
+
+        if cidade.isImpostosArrecadados():
+            return -1
 
         base = (
             cidade.getServos() *
@@ -25,7 +29,10 @@ class Governo:
 
         cidade.adicionarFlorins(arrecadado)
 
+        cidade.marcarImpostosArrecadados()
+
         return arrecadado
+
 
     def definirTaxaImposto(
         self,

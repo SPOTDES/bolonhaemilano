@@ -10,7 +10,11 @@ class Agricultura:
     PERCENTUAL_MINIMO = 20
     PERCENTUAL_MAXIMO = 80
 
+
     def processarColheita(self, cidade: Cidade) -> int:
+
+        if cidade.isColheitaFeita():
+            return -1
 
         hectares = min(
             cidade.getTerras(),
@@ -29,7 +33,10 @@ class Agricultura:
 
         cidade.adicionarGraos(producao)
 
+        cidade.marcarColheitaFeita()
+
         return hectares
+
 
     def distribuirAlimentos(
         self,
