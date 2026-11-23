@@ -12,6 +12,8 @@ class Cidade:
     SERVOS_INICIAIS = 200
     TAXA_IMPOSTO_INICIAL = 10
     NIVEL_JUSTICA_INICIAL = "Moderada"
+    SOLDADOS_INICIAIS = 0
+    CONSTRUCOES_INICIAIS = 0
 
     def __init__(self, nome: str, dono: Jogador) -> None:
         self.nome = nome
@@ -25,6 +27,9 @@ class Cidade:
 
         self.taxaImposto = self.TAXA_IMPOSTO_INICIAL
         self.nivelJustica = self.NIVEL_JUSTICA_INICIAL
+
+        self.soldados = self.SOLDADOS_INICIAIS
+        self.construcoes = self.CONSTRUCOES_INICIAIS
 
     def getNome(self) -> str:
         return self.nome
@@ -58,6 +63,12 @@ class Cidade:
 
     def setNivelJustica(self, nivel: str) -> None:
         self.nivelJustica = nivel
+
+    def getSoldados(self) -> int:
+        return self.soldados
+
+    def getConstrucoes(self) -> int:
+        return self.construcoes
 
     def avancarAno(self) -> None:
         self.anoAtual += 1
@@ -106,6 +117,28 @@ class Cidade:
         self.servos -= qtd
         return True
 
+    def adicionarSoldados(self, qtd: int) -> None:
+        if qtd > 0:
+            self.soldados += qtd
+
+    def removerSoldados(self, qtd: int) -> bool:
+        if qtd <= 0 or self.soldados < qtd:
+            return False
+
+        self.soldados -= qtd
+        return True
+
+    def adicionarConstrucoes(self, qtd: int) -> None:
+        if qtd > 0:
+            self.construcoes += qtd
+
+    def removerConstrucoes(self, qtd: int) -> bool:
+        if qtd <= 0 or self.construcoes < qtd:
+            return False
+
+        self.construcoes -= qtd
+        return True
+
     def exibirStatus(self) -> None:
         print("\n========== STATUS DA CIDADE ==========")
         print(f"Cidade: {self.nome}")
@@ -117,4 +150,6 @@ class Cidade:
         print(f"Servos: {self.servos}")
         print(f"Taxa de imposto: {self.taxaImposto}%")
         print(f"Nível de justiça: {self.nivelJustica}")
+        print(f"Soldados: {self.soldados}")
+        print(f"Construções: {self.construcoes}")
         print("======================================")

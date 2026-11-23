@@ -7,6 +7,7 @@ from jogador import Jogador
 from mercado import Mercado
 from agricultura import Agricultura
 from governo import Governo
+from construcoes import Construcoes
 
 
 class Menu:
@@ -21,6 +22,7 @@ class Menu:
         self.mercado: Mercado = Mercado()
         self.agricultura: Agricultura = Agricultura()
         self.governo: Governo = Governo()
+        self.construcoes: Construcoes = Construcoes()
 
     def executar(self) -> None:
         while self.emExecucao:
@@ -40,7 +42,8 @@ class Menu:
         print("3 - Mercado")
         print("4 - Agricultura")
         print("5 - Governo")
-        print("6 - Sobre o jogo")
+        print("6 - Construções")
+        print("7 - Sobre o jogo")
         print("0 - Sair")
         print("Escolha uma opção: ", end="", flush=True)
 
@@ -67,6 +70,9 @@ class Menu:
             self.abrirGoverno()
 
         elif opcao == 6:
+            self.abrirConstrucoes()
+
+        elif opcao == 7:
             self.exibirSobre()
 
         elif opcao == 0:
@@ -300,6 +306,56 @@ class Menu:
 
         if self.governo.definirJustica(self.cidade, nivel):
             print("Nível de justiça atualizado com sucesso!")
+
+    def abrirConstrucoes(self) -> None:
+        if self.cidade is None:
+            print("Nenhum jogo foi iniciado.")
+            return
+
+        naConstrucoes = True
+
+        while naConstrucoes:
+            print("\n========== CONSTRUÇÕES ==========")
+            print(f"Florins: {self.cidade.getFlorins()}")
+            print(f"Servos: {self.cidade.getServos()}")
+            print(f"Soldados: {self.cidade.getSoldados()}")
+            print(f"Construções: {self.cidade.getConstrucoes()}")
+            print(f"Preço por soldado: {self.construcoes.getPrecoSoldado()}")
+            print(f"Preço por construção: {self.construcoes.getPrecoConstrucao()}")
+            print("1 - Recrutar soldados")
+            print("2 - Construir")
+            print("0 - Voltar")
+            print("Escolha uma opção: ", end="", flush=True)
+
+            opcao = self.lerOpcao()
+
+            if opcao == 1:
+                self.recrutarSoldados()
+
+            elif opcao == 2:
+                self.construir()
+
+            elif opcao == 0:
+                naConstrucoes = False
+
+            else:
+                print("Opção inválida.")
+
+    def recrutarSoldados(self) -> None:
+        qtd = self.lerQuantidade()
+
+        if self.construcoes.recrutarSoldados(self.cidade, qtd):
+            print("Soldados recrutados com sucesso!")
+        else:
+            print("Não foi possível recrutar soldados.")
+
+    def construir(self) -> None:
+        qtd = self.lerQuantidade()
+
+        if self.construcoes.construir(self.cidade, qtd):
+            print("Construção realizada com sucesso!")
+        else:
+            print("Não foi possível construir.")
 
     def exibirSobre(self) -> None:
         print("\nBolonha e Milano é um jogo de estratégia econômica medieval.")
