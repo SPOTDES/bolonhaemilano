@@ -1,3 +1,4 @@
+
 import sys
 from typing import Optional, TextIO
 
@@ -5,6 +6,7 @@ from cidade import Cidade
 from jogador import Jogador
 from mercado import Mercado
 from agricultura import Agricultura
+from governo import Governo
 
 
 class Menu:
@@ -18,6 +20,7 @@ class Menu:
 
         self.mercado: Mercado = Mercado()
         self.agricultura: Agricultura = Agricultura()
+        self.governo: Governo = Governo()
 
     def executar(self) -> None:
         while self.emExecucao:
@@ -36,7 +39,8 @@ class Menu:
         print("2 - Ver status da cidade")
         print("3 - Mercado")
         print("4 - Agricultura")
-        print("5 - Sobre o jogo")
+        print("5 - Governo")
+        print("6 - Sobre o jogo")
         print("0 - Sair")
         print("Escolha uma opção: ", end="", flush=True)
 
@@ -60,6 +64,9 @@ class Menu:
             self.abrirAgricultura()
 
         elif opcao == 5:
+            self.abrirGoverno()
+
+        elif opcao == 6:
             self.exibirSobre()
 
         elif opcao == 0:
@@ -74,6 +81,12 @@ class Menu:
 
         print("Digite o nome da cidade: ", end="", flush=True)
         nomeCidade = self.scanner.readline().strip()
+
+        if not nomeJogador:
+            nomeJogador = "Jogador 1"
+
+        if not nomeCidade:
+            nomeCidade = "Bolonha"
 
         self.jogador = Jogador(nomeJogador)
         self.cidade = Cidade(nomeCidade, self.jogador)
@@ -198,7 +211,6 @@ class Menu:
 
     def colher(self) -> None:
         hectares = self.agricultura.processarColheita(self.cidade)
-
         print(f"Colheita realizada em {hectares} hectares.")
 
     def distribuirAlimentos(self) -> None:
@@ -214,6 +226,80 @@ class Menu:
             print("Distribuição de alimentos realizada com sucesso!")
         else:
             print("Percentual inválido. Utilize um valor entre 20 e 80.")
+
+    def abrirGoverno(self) -> None:
+        if self.cidade is None:
+            print("Nenhum jogo foi iniciado.")
+            return
+
+        noGoverno = True
+
+        while noGoverno:
+            print("\n========== GOVERNO ==========")
+            print(f"Florins disponíveis: {self.cidade.getFlorins()}")
+            print(f"Taxa de imposto: {self.cidade.getTaxaImposto()}%")
+            print(f"Nível de justiça: {self.cidade.getNivelJustica()}")
+            print("1 - Arrecadar impostos")
+            print("2 - Definir taxa de imposto")
+            print("3 - Definir nível de justiça")
+            print("0 - Voltar")
+            print("Escolha uma opção: ", end="", flush=True)
+
+            opcao = self.lerOpcao()
+
+            if opcao == 1:
+                self.arrecadarImpostos()
+
+            elif opcao == 2:
+                self.definirTaxaImposto()
+
+            elif opcao == 3:
+                self.definirJustica()
+
+            elif opcao == 0:
+                noGoverno = False
+
+            else:
+                print("Opção inválida.")
+
+    def arrecadarImpostos(self) -> None:
+        arrecadado = self.governo.arrecadarImpostos(self.cidade)
+        print(f"Impostos arrecadados: {arrecadado} florins.")
+
+    def definirTaxaImposto(self) -> None:
+        print("Digite a taxa de imposto (0 a 50): ",
+              end="", flush=True)
+
+        taxa = self.lerOpcao()
+
+        if self.governo.definirTaxaImposto(self.cidade, taxa):
+            print("Taxa de imposto atualizada com sucesso!")
+        else:
+            print("Taxa inválida. Utilize um valor entre 0 e 50.")
+
+    def definirJustica(self) -> None:
+        print("\nEscolha o nível de justiça:")
+        print("1 - Justa")
+        print("2 - Moderada")
+        print("3 - Severa")
+        print("Escolha uma opção: ", end="", flush=True)
+
+        opcao = self.lerOpcao()
+
+        niveis = {
+            1: "Justa",
+            2: "Moderada",
+            3: "Severa"
+        }
+
+        nivel = niveis.get(opcao)
+
+        if nivel is None:
+            print("Opção de justiça inválida.")
+            return
+
+        if self.governo.definirJustica(self.cidade, nivel):
+            print("Nível de justiça atualizado com sucesso!")
 
     def exibirSobre(self) -> None:
         print("\nBolonha e Milano é um jogo de estratégia econômica medieval.")

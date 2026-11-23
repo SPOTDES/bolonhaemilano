@@ -1,13 +1,11 @@
+
 from cidade import Cidade
 
 
 class Mercado:
 
-    # Valores provisórios para permitir os testes.
-    # Os slides exigem preços fixos, mas não informam
-    # os valores numéricos oficiais.
     PRECO_GRAO = 2
-    PRECO_TERRA = 10
+    PRECO_TERRA = 1
 
     def getPrecoGrao(self) -> int:
         return self.PRECO_GRAO
@@ -25,6 +23,7 @@ class Mercado:
             return False
 
         cidade.adicionarGraos(qtd)
+
         return True
 
     def venderGraos(self, cidade: Cidade, qtd: int) -> bool:
@@ -35,6 +34,7 @@ class Mercado:
             return False
 
         receita = qtd * self.PRECO_GRAO
+
         cidade.adicionarFlorins(receita)
 
         return True
@@ -49,6 +49,7 @@ class Mercado:
             return False
 
         cidade.adicionarTerras(qtd)
+
         return True
 
     def venderTerras(self, cidade: Cidade, qtd: int) -> bool:
@@ -59,6 +60,7 @@ class Mercado:
             return False
 
         receita = qtd * self.PRECO_TERRA
+
         cidade.adicionarFlorins(receita)
 
         return True

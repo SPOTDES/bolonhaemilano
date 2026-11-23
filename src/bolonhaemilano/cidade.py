@@ -1,17 +1,30 @@
+
 from jogador import Jogador
 
 
 class Cidade:
 
+    # Constantes de valores iniciais
+    ANO_INICIAL = 1400
+    FLORINS_INICIAIS = 1000
+    TERRAS_INICIAIS = 10000
+    GRAOS_INICIAIS = 500
+    SERVOS_INICIAIS = 200
+    TAXA_IMPOSTO_INICIAL = 10
+    NIVEL_JUSTICA_INICIAL = "Moderada"
+
     def __init__(self, nome: str, dono: Jogador) -> None:
         self.nome = nome
-        self.anoAtual = 1400
+        self.anoAtual = self.ANO_INICIAL
         self.dono = dono
 
-        self.florins = 1000
-        self.terras = 10000
-        self.graos = 500
-        self.servos = 200
+        self.florins = self.FLORINS_INICIAIS
+        self.terras = self.TERRAS_INICIAIS
+        self.graos = self.GRAOS_INICIAIS
+        self.servos = self.SERVOS_INICIAIS
+
+        self.taxaImposto = self.TAXA_IMPOSTO_INICIAL
+        self.nivelJustica = self.NIVEL_JUSTICA_INICIAL
 
     def getNome(self) -> str:
         return self.nome
@@ -33,6 +46,18 @@ class Cidade:
 
     def getServos(self) -> int:
         return self.servos
+
+    def getTaxaImposto(self) -> int:
+        return self.taxaImposto
+
+    def setTaxaImposto(self, taxa: int) -> None:
+        self.taxaImposto = taxa
+
+    def getNivelJustica(self) -> str:
+        return self.nivelJustica
+
+    def setNivelJustica(self, nivel: str) -> None:
+        self.nivelJustica = nivel
 
     def avancarAno(self) -> None:
         self.anoAtual += 1
@@ -90,4 +115,6 @@ class Cidade:
         print(f"Terras: {self.terras} hectares")
         print(f"Grãos: {self.graos} unidades")
         print(f"Servos: {self.servos}")
+        print(f"Taxa de imposto: {self.taxaImposto}%")
+        print(f"Nível de justiça: {self.nivelJustica}")
         print("======================================")
