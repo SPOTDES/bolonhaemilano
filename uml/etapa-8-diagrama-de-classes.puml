@@ -1,0 +1,223 @@
+
+@startuml
+
+left to right direction
+
+class Main {
+    +main(args: list[str]): None
+}
+
+class Menu {
+    -scanner: TextIO
+    -emExecucao: bool
+    -partida: Partida
+    -cidade: Cidade
+    -mercado: Mercado
+    -agricultura: Agricultura
+    -governo: Governo
+    -construcoes: Construcoes
+    -nobreza: Nobreza
+
+    +executar(): None
+    -exibirOpcoes(): None
+    -lerOpcao(): int
+    -lerQuantidade(): int
+    -lerInteiro(): int
+    -exigirJogoEmAndamento(): bool
+    -processarOpcao(opcao: int): None
+    -iniciarNovoJogo(): None
+    -exibirStatus(): None
+    -abrirMercado(): None
+    -abrirAgricultura(): None
+    -abrirGoverno(): None
+    -abrirConstrucoes(): None
+    -encerrarTurno(): None
+    -exibirClassificacao(): None
+    -encerrarPartida(): None
+    -exibirSobre(): None
+}
+
+class Testes {
+    {static} -aprovados: int
+    {static} -reprovados: int
+
+    {static} +main(args: list[str]): None
+    {static} -verificar(descricao: str, condicao: bool): None
+    {static} -novaCidade(): Cidade
+    {static} -testarCidade(): None
+    {static} -testarMercado(): None
+    {static} -testarAgricultura(): None
+    {static} -testarGoverno(): None
+    {static} -testarConstrucoes(): None
+    {static} -testarJogadorENobreza(): None
+    {static} -testarPartida(): None
+}
+
+class Jogador {
+    {static} -TITULOS: tuple
+
+    -nome: str
+    -nivelTitulo: int
+
+    +getNome(): str
+    +getTitulo(): str
+    +getNivelTitulo(): int
+    +promover(): bool
+    +ehMonarca(): bool
+}
+
+class Partida {
+    {static} +MAXIMO_JOGADORES: int = 4
+    {static} -ANO_FINAL: int = 1410
+
+    -cidades: List<Cidade>
+    -indiceAtual: int
+
+    +adicionarCidade(cidade: Cidade): bool
+    +getCidades(): List<Cidade>
+    +getCidadeAtual(): Cidade
+    +getAnoAtual(): int
+    +getAnoFinal(): int
+    +passarTurno(): bool
+    +encerrarAno(nobreza: Nobreza): List<Cidade>
+    +terminou(): bool
+    +determinarVencedor(nobreza: Nobreza): Cidade
+}
+
+class Cidade {
+    -nome: str
+    -anoAtual: int
+    -dono: Jogador
+    -florins: int
+    -terras: int
+    -graos: int
+    -servos: int
+    -taxaImposto: int
+    -nivelJustica: str
+    -soldados: int
+    -construcoes: int
+    -colheitaFeita: bool
+    -impostosArrecadados: bool
+
+    +getNome(): str
+    +getAnoAtual(): int
+    +getDono(): Jogador
+    +avancarAno(): None
+    +isColheitaFeita(): bool
+    +marcarColheitaFeita(): None
+    +isImpostosArrecadados(): bool
+    +marcarImpostosArrecadados(): None
+    +getFlorins(): int
+    +getTerras(): int
+    +getGraos(): int
+    +getServos(): int
+    +getTaxaImposto(): int
+    +setTaxaImposto(taxa: int): None
+    +getNivelJustica(): str
+    +setNivelJustica(nivel: str): None
+    +getSoldados(): int
+    +getConstrucoes(): int
+    +adicionarFlorins(qtd: int): None
+    +removerFlorins(qtd: int): bool
+    +adicionarTerras(qtd: int): None
+    +removerTerras(qtd: int): bool
+    +adicionarGraos(qtd: int): None
+    +removerGraos(qtd: int): bool
+    +adicionarServos(qtd: int): None
+    +removerServos(qtd: int): bool
+    +adicionarSoldados(qtd: int): None
+    +removerSoldados(qtd: int): bool
+    +adicionarConstrucoes(qtd: int): None
+    +removerConstrucoes(qtd: int): bool
+    +exibirStatus(): None
+}
+
+class Mercado {
+    -PRECO_GRAO: int
+    -PRECO_TERRA: int
+
+    +getPrecoGrao(): int
+    +getPrecoTerra(): int
+    +comprarGraos(cidade: Cidade, qtd: int): bool
+    +venderGraos(cidade: Cidade, qtd: int): bool
+    +comprarTerras(cidade: Cidade, qtd: int): bool
+    +venderTerras(cidade: Cidade, qtd: int): bool
+}
+
+class Agricultura {
+    -HECTARES_POR_SERVO: int
+    -RENDIMENTO_POR_HECTARE: int
+    -SERVOS_POR_GRAO: int
+    -CRESCIMENTO_PERCENTUAL: int
+    -PERCENTUAL_MINIMO: int
+    -PERCENTUAL_MAXIMO: int
+
+    +processarColheita(cidade: Cidade): int
+    +distribuirAlimentos(cidade: Cidade, percentual: int): bool
+}
+
+class Governo {
+    -TAXA_MAXIMA: int
+    -MULTIPLICADOR_JUSTA: float
+    -MULTIPLICADOR_MODERADA: float
+    -MULTIPLICADOR_SEVERA: float
+
+    +arrecadarImpostos(cidade: Cidade): int
+    +definirTaxaImposto(cidade: Cidade, taxa: int): bool
+    +definirJustica(cidade: Cidade, nivel: str): bool
+    -multiplicadorPara(nivel: str): float
+}
+
+class Construcoes {
+    -PRECO_SOLDADO: int
+    -SERVOS_POR_SOLDADO: int
+    -PRECO_CONSTRUCAO: int
+
+    +recrutarSoldados(cidade: Cidade, qtd: int): bool
+    +construir(cidade: Cidade, qtd: int): bool
+    +getPrecoSoldado(): int
+    +getPrecoConstrucao(): int
+}
+
+class Nobreza {
+    -PESO_CONSTRUCAO: int
+    -PESO_SOLDADO: int
+    -PESO_SERVO: int
+    -HECTARES_POR_PONTO: int
+    -PRESTIGIO_MINIMO: tuple
+
+    +calcularPrestigio(cidade: Cidade): int
+    +prestigioParaProximoTitulo(jogador: Jogador): int
+    +verificarPromocao(cidade: Cidade): bool
+}
+
+Main ..> Menu : cria e usa
+
+Menu --> Partida
+Menu --> Cidade : cidade da vez
+Menu --> Mercado
+Menu --> Agricultura
+Menu --> Governo
+Menu --> Construcoes
+Menu --> Nobreza
+
+Partida "1" o-- "1..4" Cidade : cidades
+
+Cidade --> "1" Jogador : dono
+
+Mercado ..> Cidade : parâmetro
+Agricultura ..> Cidade : parâmetro
+Governo ..> Cidade : parâmetro
+Construcoes ..> Cidade : parâmetro
+Nobreza ..> Cidade : parâmetro
+
+Testes ..> Cidade
+Testes ..> Mercado
+Testes ..> Agricultura
+Testes ..> Governo
+Testes ..> Construcoes
+Testes ..> Jogador
+Testes ..> Nobreza
+Testes ..> Partida
+
+@enduml

@@ -1,0 +1,62 @@
+
+@startuml
+
+actor Jogador
+
+participant ":Menu" as Menu
+participant ":Partida" as Partida
+participant ":Cidade" as Cidade
+participant ":Nobreza" as Nobreza
+participant "dono:Jogador" as Dono
+
+Jogador -> Menu : opção 7 (Encerrar turno)
+
+Menu -> Partida : passarTurno()
+
+Partida --> Menu : true (fim do ano)
+
+Menu -> Partida : encerrarAno(nobreza)
+
+loop Para cada cidade
+
+    Partida -> Cidade : avancarAno()
+
+    Partida -> Nobreza : verificarPromocao(cidade)
+
+    Nobreza -> Cidade : getDono()
+    Cidade --> Nobreza : dono
+
+    alt Prestígio suficiente
+        Nobreza -> Dono : promover()
+        Dono --> Nobreza : true
+    else Prestígio insuficiente
+        Nobreza --> Partida : false
+    end
+
+end
+
+Partida --> Menu : lista de cidades promovidas
+
+Menu -> Partida : terminou()
+
+Partida --> Menu : true ou false
+
+alt Partida terminou
+
+    Menu -> Partida : determinarVencedor(nobreza)
+
+    Partida --> Menu : cidade vencedora
+
+    Menu -> Jogador : Exibe vencedor
+
+else Partida continua
+
+    Menu -> Partida : getCidadeAtual()
+
+    Partida --> Menu : cidade da vez
+
+    Menu -> Jogador : Agora é a vez de...
+
+end
+
+@enduml

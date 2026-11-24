@@ -1,74 +1,61 @@
+
 # 🏰 Bolonha e Milano
 
-### Jogo de Estratégia Econômica Medieval
+### Jogo de Estratégia Econômica e Política Medieval
 
 **Projeto de Desenvolvimento — 4º Bimestre**  
+**Instituição:** Instituto Federal de São Paulo (IFSP)  
 **Disciplina:** Desenvolvimento de Sistemas  
 **Professor:** Domingos Bernardo  
-**Linguagem de programação:** Python
+**Linguagem:** Python
 
 ---
 
 ## 📜 Sobre o projeto
 
-Bolonha e Milano é um jogo de estratégia econômica e política ambientado na Itália medieval. O jogador assume o papel de governante de uma cidade-Estado e precisa administrar seus recursos, desenvolver seu território e tomar decisões estratégicas para conquistar títulos de nobreza.
+Bolonha e Milano é um jogo de estratégia econômica e política ambientado na Itália medieval.
 
-Ao longo do jogo, será necessário equilibrar aspectos como agricultura, alimentação, economia, comércio, impostos, construções e defesa territorial.
+Cada participante governa uma cidade-Estado e precisa administrar seus recursos, desenvolver seu território, arrecadar impostos, investir em construções e organizar sua defesa.
 
-O objetivo final é desenvolver a cidade e conquistar progressivamente os títulos de nobreza, chegando ao título de **Rei ou Rainha**.
+O jogo permite de 1 a 4 participantes na mesma partida, compartilhando o mesmo terminal.
 
-O projeto será desenvolvido de maneira incremental, dividido em oito etapas, aplicando conceitos de programação orientada a objetos, modelagem UML e organização de código com Git e GitHub.
+O objetivo é desenvolver a cidade, acumular prestígio e conquistar títulos de nobreza, até alcançar o título de Rei ou Rainha.
+
+A partida termina quando algum governante alcança o título máximo ou quando se encerra o ano de 1410.
 
 ## 🎯 Objetivos do jogo
 
 - Administrar uma cidade-Estado medieval.
-- Gerenciar recursos e desenvolver o território.
-- Tomar decisões econômicas e políticas.
-- Equilibrar produção agrícola, população e comércio.
-- Investir em construções e defesa.
-- Evoluir na hierarquia de títulos de nobreza.
-- Alcançar o título de Rei ou Rainha.
-
-## ⚔️ Recursos administrados
-
-Durante o desenvolvimento do jogo, serão trabalhados recursos como:
-
-| Recurso | Função |
-|---|---|
-| Florins | Financiar compras, investimentos e construções. |
-| Grãos | Alimentar a população e reservar sementes para a agricultura. |
-| Terras | Determinar o espaço disponível para produção agrícola. |
-| Servos | Fornecer mão de obra. |
-| Soldados | Manter a capacidade de defesa. |
-| Mercadores | Participar das atividades comerciais. |
-| Clero | Fortalecer a influência religiosa. |
-| Nobres | Fortalecer o prestígio político. |
-| Mercados | Expandir o comércio. |
-| Moinhos de lã | Desenvolver a atividade produtiva. |
-| Palácios | Aumentar o prestígio político. |
-| Catedrais | Ampliar a influência religiosa. |
+- Gerenciar recursos econômicos.
+- Desenvolver a agricultura e alimentar a população.
+- Definir impostos e nível de justiça.
+- Recrutar soldados e construir edifícios.
+- Acumular prestígio e conquistar títulos de nobreza.
+- Competir com outros jogadores pelo título de Rei ou Rainha.
 
 ## 👑 Progressão dos títulos
 
-A evolução política do governante acontece por meio de oito títulos:
+| Título | Prestígio necessário |
+|---|---:|
+| Cavaleiro | Inicial |
+| Barão | 400 |
+| Conde | 550 |
+| Marquês | 700 |
+| Duque | 850 |
+| Rei/Rainha | 1000 |
 
-1. Cavaleiro
-2. Barão
-3. Conde
-4. Marquês
-5. Duque
-6. Grão-Duque
-7. Príncipe
-8. Rei / Rainha
+O prestígio é calculado pela seguinte fórmula:
 
-A conquista dos títulos estará relacionada ao desenvolvimento geral do território e aos requisitos estabelecidos pelas regras do jogo.
+Prestígio = (Construções × 10) + (Soldados × 2) + Servos + (Terras ÷ 100)
+
+Os florins não são considerados diretamente no cálculo.
 
 ## 🛠️ Tecnologias utilizadas
 
-- **Python:** desenvolvimento da lógica e funcionamento do jogo.
-- **PlantUML:** criação dos diagramas UML.
-- **Git:** controle de versão do projeto.
-- **GitHub:** armazenamento e acompanhamento do desenvolvimento.
+- Python: desenvolvimento da lógica do jogo.
+- PlantUML: modelagem dos diagramas UML.
+- Git: controle de versão.
+- GitHub: armazenamento e acompanhamento do projeto.
 
 ## 📂 Estrutura do projeto
 
@@ -80,77 +67,28 @@ Bolonha-e-Milano/
 ├── src/
 │   └── bolonhaemilano/
 │       ├── main.py
-│       └── menu.py
+│       ├── menu.py
+│       ├── jogador.py
+│       ├── cidade.py
+│       ├── mercado.py
+│       ├── agricultura.py
+│       ├── governo.py
+│       ├── construcoes.py
+│       ├── partida.py
+│       ├── nobreza.py
+│       └── testes.py
 │
 ├── uml/
-│   └── etapa-1-diagrama-de-classes.puml
+│   ├── diagramas-de-classes
+│   └── diagrama-de-sequencia
 │
 └── casos-de-uso/
+    └── diagramas-de-casos-de-uso
 ```
 
-### Organização das pastas
+## ▶️ Como executar
 
-- **src/bolonhaemilano/:** contém os arquivos Python e as classes responsáveis pelo funcionamento do jogo.
-- **uml/:** armazena os diagramas de classes desenvolvidos em PlantUML.
-- **casos-de-uso/:** destinada aos diagramas de casos de uso.
-- **README.md:** documentação geral do projeto.
-
-## 📅 Etapas de desenvolvimento
-
-O projeto será desenvolvido em oito etapas incrementais:
-
-| Etapa | Desenvolvimento |
-|---|---|
-| 1 | Estrutura inicial, Main e Menu |
-| 2 | Classes Jogador e Cidade |
-| 3 | Economia: florins, terras e grãos |
-| 4 | Agricultura e população |
-| 5 | Impostos e governo |
-| 6 | Construções e soldados |
-| 7 | Rodadas, múltiplos jogadores e vitória |
-| 8 | Integração, testes e entrega final |
-
-Cada etapa acrescentará novas funcionalidades ao projeto, mantendo a estrutura e os diagramas UML atualizados.
-
-## 💻 Etapa 1 — Estrutura inicial, Main e Menu
-
-Nesta primeira etapa, foi desenvolvida a estrutura inicial do programa, estabelecendo o ponto de entrada e o menu principal.
-
-Foram implementadas duas classes:
-
-**Main**
-- Responsável pelo ponto de entrada do programa.
-- Cria um objeto da classe Menu.
-- Chama o método responsável por executar o menu.
-
-**Menu**
-- Apresenta as opções disponíveis no terminal.
-- Realiza a leitura e validação das entradas.
-- Controla o laço principal de execução.
-- Processa as opções escolhidas pelo usuário.
-- Apresenta informações sobre o jogo.
-- Encerra a execução quando o usuário seleciona a opção de saída.
-
-### Menu principal
-
-```text
-==========================================
-              BOLONHA E MILANO
-   Um jogo de estratégia econômica medieval
-==========================================
-1 - Novo jogo
-2 - Sobre o jogo
-0 - Sair
-Escolha uma opção:
-```
-
-Nesta etapa, a opção Novo jogo apresenta uma mensagem informando que sua implementação será realizada na Etapa 2.
-
-O menu permanece em execução até que o usuário escolha a opção de saída. Entradas inválidas são tratadas sem interromper o funcionamento do programa.
-
-## ▶️ Como executar o projeto
-
-É necessário ter o Python instalado na máquina.
+É necessário ter o Python instalado.
 
 Clone o repositório:
 
@@ -164,26 +102,98 @@ Acesse a pasta do projeto:
 cd Bolonha-e-Milano
 ```
 
-Execute o programa:
+Execute o jogo:
 
 ```bash
 python src/bolonhaemilano/main.py
 ```
 
-O menu principal será apresentado diretamente no terminal.
+## 🎮 Como jogar
+
+### Menu principal
+
+| Opção | Funcionalidade |
+|---|---|
+| 1 | Novo jogo |
+| 2 | Ver status da cidade |
+| 3 | Mercado |
+| 4 | Agricultura |
+| 5 | Governo |
+| 6 | Construções |
+| 7 | Encerrar turno |
+| 8 | Ver classificação |
+| 9 | Sobre o jogo |
+| 0 | Sair |
+
+### Mercado
+
+Permite comprar e vender grãos e terras utilizando florins.
+
+### Agricultura
+
+Permite processar a colheita e distribuir alimentos à população.
+
+A colheita pode ser realizada somente uma vez por ano em cada cidade.
+
+### Governo
+
+Permite arrecadar impostos, modificar a taxa de imposto e definir o nível de justiça.
+
+A arrecadação ocorre somente uma vez por ano em cada cidade.
+
+### Construções
+
+Permite recrutar soldados e construir edifícios, consumindo os recursos necessários.
+
+### Turnos e classificação
+
+Cada jogador realiza suas ações e encerra seu turno. Quando todos finalizam, o ano é encerrado, as cidades são avaliadas e os títulos podem ser atualizados.
+
+A classificação apresenta o prestígio de cada cidade e a meta necessária para o próximo título.
+
+## 🧪 Como executar os testes
+
+O projeto possui uma classe `Testes`, responsável por verificar automaticamente as regras do jogo.
+
+Execute:
+
+```bash
+python src/bolonhaemilano/testes.py
+```
+
+Os testes verificam as classes Cidade, Mercado, Agricultura, Governo, Construções, Jogador, Nobreza e Partida.
+
+Resultado esperado:
+
+```text
+Aprovados: 37 | Reprovados: 0
+```
 
 ## 📊 Diagramas UML
 
-Os diagramas UML acompanham o desenvolvimento incremental do projeto.
+Os diagramas de classes estão armazenados em `uml/`.
 
-A cada etapa, os diagramas correspondentes serão atualizados e adicionados ao repositório, documentando a estrutura das classes e as funcionalidades do sistema.
+Os diagramas de casos de uso estão armazenados em `casos-de-uso/`.
 
-Os arquivos são armazenados no formato `.puml`, permitindo sua visualização e edição utilizando ferramentas compatíveis com PlantUML.
+O diagrama de sequência representa o encerramento do ano, incluindo a passagem de turno, a avaliação das cidades e as promoções de títulos.
+
+## 📅 Etapas de desenvolvimento
+
+| Etapa | Conteúdo |
+|---|---|
+| 1 | Estrutura inicial, Main e Menu |
+| 2 | Classes Jogador e Cidade |
+| 3 | Economia: florins, terras e grãos |
+| 4 | Agricultura e população |
+| 5 | Impostos e governo |
+| 6 | Construções e soldados |
+| 7 | Rodadas, múltiplos jogadores e vitória |
+| 8 | Integração, testes e entrega final |
 
 ## 📌 Considerações finais
 
-O projeto Bolonha e Milano busca aplicar, na prática, os conceitos de programação orientada a objetos, organização de sistemas, modelagem UML e controle de versão.
+O projeto aplica conceitos de programação orientada a objetos, modelagem UML, integração entre classes, testes automatizados e controle de versão.
 
-O desenvolvimento será realizado progressivamente, respeitando os requisitos e as funcionalidades estabelecidos para cada etapa.
+O desenvolvimento foi dividido em oito etapas incrementais, acompanhadas por diagramas e commits individuais.
 
-**Projeto em desenvolvimento — 4º Bimestre.**
+**Projeto desenvolvido em Python — 4º Bimestre.**

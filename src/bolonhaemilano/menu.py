@@ -65,10 +65,7 @@ class Menu:
         print("Escolha uma opção: ", end="", flush=True)
 
     def lerOpcao(self) -> int:
-        try:
-            return int(self.scanner.readline().strip())
-        except ValueError:
-            return -1
+        return self.lerInteiro()
 
     def processarOpcao(self, opcao: int) -> None:
         if opcao == 1:
@@ -173,16 +170,14 @@ class Menu:
         self.exibirStatus()
 
     def exibirStatus(self) -> None:
-        if self.partida is None:
-            print("Nenhum jogo em andamento.")
+        if not self.exigirJogoEmAndamento():
             return
 
         self.cidade = self.partida.getCidadeAtual()
         self.cidade.exibirStatus()
 
     def abrirMercado(self) -> None:
-        if self.partida is None:
-            print("Nenhum jogo em andamento.")
+        if not self.exigirJogoEmAndamento():
             return
 
         noMercado = True
@@ -221,12 +216,8 @@ class Menu:
 
     def lerQuantidade(self) -> int:
         print("Digite a quantidade: ", end="", flush=True)
-
-        try:
-            return int(self.scanner.readline().strip())
-        except ValueError:
-            return -1
-
+        return self.lerInteiro()
+    
     def comprarGraos(self) -> None:
         qtd = self.lerQuantidade()
 
@@ -260,8 +251,7 @@ class Menu:
             print("Não foi possível vender terras.")
 
     def abrirAgricultura(self) -> None:
-        if self.partida is None:
-            print("Nenhum jogo em andamento.")
+        if not self.exigirJogoEmAndamento():
             return
 
         naAgricultura = True
@@ -316,8 +306,7 @@ class Menu:
             print("Percentual inválido. Utilize um valor entre 20 e 80.")
 
     def abrirGoverno(self) -> None:
-        if self.partida is None:
-            print("Nenhum jogo em andamento.")
+        if not self.exigirJogoEmAndamento():
             return
 
         noGoverno = True
@@ -397,8 +386,7 @@ class Menu:
             print("Nível de justiça atualizado com sucesso!")
 
     def abrirConstrucoes(self) -> None:
-        if self.partida is None:
-            print("Nenhum jogo em andamento.")
+        if not self.exigirJogoEmAndamento():
             return
 
         naConstrucoes = True
@@ -446,8 +434,7 @@ class Menu:
 
 
     def encerrarTurno(self) -> None:
-        if self.partida is None:
-            print("Nenhum jogo em andamento.")
+        if not self.exigirJogoEmAndamento():
             return
 
         anoTerminou = self.partida.passarTurno()
@@ -490,8 +477,7 @@ class Menu:
 
 
     def exibirClassificacao(self) -> None:
-        if self.partida is None:
-            print("Nenhum jogo em andamento.")
+        if not self.exigirJogoEmAndamento():
             return
 
         print("\n----------- CLASSIFICAÇÃO -----------")
@@ -551,3 +537,16 @@ class Menu:
         print("Cada jogador governa uma cidade-Estado.")
         print("O objetivo é desenvolver sua cidade e conquistar títulos de nobreza.")
         print("A partida termina quando alguém chega a Rei/Rainha ou ao fim de 1410.")
+
+    def lerInteiro(self) -> int:
+        try:
+            return int(self.scanner.readline().strip())
+        except ValueError:
+            return -1
+
+    def exigirJogoEmAndamento(self) -> bool:
+        if self.partida is None:
+            print("Nenhum jogo em andamento...")
+            return False
+
+        return True
